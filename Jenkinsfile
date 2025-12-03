@@ -25,7 +25,7 @@ pipeline {
                     WAR_FILE="target/news-app.war"
 
                     echo "Cleaning old deployment..."
-                 //   sudo rm -rf $TOMCAT_PATH/news-app $TOMCAT_PATH/news-app.war
+                    sudo rm -rf $TOMCAT_PATH/news-app $TOMCAT_PATH/news-app.war
 
                     echo "Copying new WAR..."
                     sudo cp $WAR_FILE $TOMCAT_PATH/
