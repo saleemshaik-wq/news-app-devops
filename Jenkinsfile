@@ -17,6 +17,11 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('Check User') {
+    steps {
+        sh 'whoami'
+    }
+}
 
         stage('Deploy WAR to Tomcat') {
             steps {
