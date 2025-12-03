@@ -22,7 +22,22 @@ pipeline {
         sh 'whoami'
     }
 }
+ // 6.3: Push the artifacts to Jfrog repository
+stage('Push the artifacts into Jfrog Artifactory') {
+    steps {
+        script {
+            // Get the current date and time in the format: yyyy-MM-dd_HH-mm
+            def currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm").format(new Date())
 
+            // Define the target path with the timestamp
+            def targetPath = "NewsApp/${currentDate}/"
+
+            // Configure the Artifactory server
+            rtServer(
+                id: 'Artifactory',
+                url: 'https://trialyth1ui.jfrog.io/artifactory',
+                credentialsId: 'jfrog-credentials-id'   // must match Jenkins credentials
+            )
         stage('Deploy WAR to Tomcat') {
             steps {
                 sh '''
