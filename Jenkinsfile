@@ -1,11 +1,10 @@
-
 pipeline {
     agent { label 'slave2' }
     
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'feature-2', url: 'https://github.com/saleemshaik-wq/news-app-devops.git'
+                git branch: 'feature-2', url: 'https://github.com/pradeepreddy-hub/news-app-devops.git'
             }
         }
         stage('Build') {
@@ -18,18 +17,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Check User') {
-    steps {
-        sh 'whoami'
-    }
-}
-        6.3: Push the artifacts to Jfrog repository
-stage('Push the artifacts into Jfrog Artifactory') {
-    steps {
-        script {
-            stage('Push artifacts to JFrog Artifactory') {
-    steps {
-        script {
+
         stage('Deploy WAR to Tomcat') {
             steps {
                 sh '''
