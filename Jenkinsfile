@@ -30,27 +30,6 @@ stage('Push the artifacts into Jfrog Artifactory') {
             stage('Push artifacts to JFrog Artifactory') {
     steps {
         script {
-            // Generate timestamp folder
-            def currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm").format(new Date())
-
-            // Target path inside the repo
-            def targetPath = "NewsApp/${currentDate}/news-app.war"   // Change repo name if needed
-
-            withCredentials([usernamePassword(credentialsId: 'jfrog-credentials-id',
-                                             usernameVariable: 'JF_USER',
-                                             passwordVariable: 'JF_PASS')]) {
-
-                sh """
-                    echo "Uploading WAR to Artifactory..."
-                    curl -u "$JF_USER:$JF_PASS" -T target/news-app.war \
-                      "https://trialyth1ui.jfrog.io/artifactory/${targetPath}"
-                """
-            }
-        }
-    }
-}
-
-
         stage('Deploy WAR to Tomcat') {
             steps {
                 sh '''
