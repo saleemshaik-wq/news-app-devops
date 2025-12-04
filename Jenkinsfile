@@ -17,7 +17,33 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('Push the artifacts into JFrog Artifactory') {
+    steps {
+        script {
+            // Get the current date and time in the format: yyyy-MM-dd_HH-mm
+            def currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm").format(new Date())
 
+            // Define the target path with the timestamp
+            def targetPath = "pradeep.devops.releases/${currentDate}/"
+
+            // Upload the built WAR to JFrog Artifactory with the timestamped path
+            rtUpload(
+                serverId: "jfrog",
+                spec: """
+                {
+                    "files": [
+                        {
+                            "pattern": "${WAR_FILE}",
+                            "target": "${targetPath}"
+                        }
+                    ]
+                }
+                """
+            )
+        }
+    }
+} // end stage
+        
         stage('Deploy WAR to Tomcat') {
             steps {
                 sh '''
