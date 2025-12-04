@@ -73,8 +73,18 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
             </plugin>
-
+                 
         </plugins>
     </build>
+<distributionManagement>
+    <snapshotRepository>
+        <id>jfrog-snapshots</id>
+        <url>https://trial7uwx5b.jfrog.io/artifactory/new-app-snapshot/</url>
+    </snapshotRepository>
 
+    <repository>
+        <id>jfrog-releases</id>
+        <url>https://trial7uwx5b.jfrog.io/artifactory/news-app-release/</url>
+    </repository>
+</distributionManagement>
 </project>
