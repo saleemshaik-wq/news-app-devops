@@ -78,13 +78,12 @@
     </build>
 <distributionManagement>
     <snapshotRepository>
-        <id>jfrog-snapshots</id>
+        <id>news-app-snapshot</id>
         <url>https://trial7uwx5b.jfrog.io/artifactory/news-app/</url>
     </snapshotRepository>
 
     <repository>
-        <id>jfrog-releases</id>
+        <id>news-app-release</id>
         <url>https://trial7uwx5b.jfrog.io/artifactory/news-app-release/</url>
     </repository>
 </distributionManagement>
-</project>
