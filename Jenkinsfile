@@ -18,24 +18,17 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Push the artifacts into JFrog Artifactory') {
+        stage('Upload to JFrog') {
     steps {
         script {
-            // Current timestamp
-            def currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm").format(new Date())
-
-            // Repository + folder path
-            def targetPath = "my-repo-local/pradeep.devops.releases/${currentDate}/"
-
-            // Upload artifact to Artifactory
             rtUpload(
                 serverId: "jfrog",
                 spec: """
                 {
                     "files": [
                         {
-                            "pattern": "${env.WAR_FILE}",
-                            "target": "${targetPath}"
+                            "pattern": "target/*.war",
+                            "target": "new-app-snapshot/"
                         }
                     ]
                 }
