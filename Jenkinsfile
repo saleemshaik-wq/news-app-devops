@@ -1,10 +1,11 @@
+
 pipeline {
     agent { label 'slave2' }
     
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'feature-1', url: 'https://github.com/pradeepreddy-hub/news-app-devops.git'
+                git branch: 'feature-2', url: 'https://github.com/pradeepreddy-hub/news-app-devops.git'
             }
         }
         stage('Build') {
@@ -12,31 +13,11 @@ pipeline {
                 sh 'mvn clean package -DskipTests=false'
             }
         }
-        
         stage('Run Tests') {
             steps {
                 sh 'mvn test'
             }
         }
-        stage('Upload to JFrog') {
-    steps {
-        script {
-            rtUpload(
-                serverId: "jfrog",
-                spec: """
-                {
-                    "files": [
-                        {
-                            "pattern": "target/*.war",
-                            "target": "new-app-snapshot/"
-                        }
-                    ]
-                }
-                """
-            )
-        }
-    }
-}
 
         stage('Deploy WAR to Tomcat') {
             steps {
